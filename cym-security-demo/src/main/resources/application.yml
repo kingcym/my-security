@@ -1,0 +1,17 @@
+spring:
+  ####mysql配置########
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/mybd1?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: cym
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  ####关闭spring session########
+  session:
+
+
+##服务器配置
+server:
+  port: 8082
+  context-path: /bd
