@@ -9,9 +9,14 @@ spring:
 
   ####关闭spring session########
   session:
-
+    store-type: none
 
 ##服务器配置
 server:
-  port: 8082
-  context-path: /bd
+  port: 8081
+  context-path:
+
+####关闭security########
+security:
+  basic:
+    enabled: false

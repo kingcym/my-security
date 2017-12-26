@@ -55,9 +55,9 @@
 
     <!--子模块-->
     <modules>
+        <module>../cym-security-core</module>
         <module>../cym-security-app</module>
         <module>../cym-security-browser</module>
-        <module>../cym-security-core</module>
         <module>../cym-security-demo</module>
     </modules>
 </project>

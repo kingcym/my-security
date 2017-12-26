@@ -25,4 +25,30 @@
         </dependency>
     </dependencies>
 
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--可以把依赖的包都打包到生成的Jar包中-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <!--可以生成不含依赖包的不可执行Jar包-->
+                        <!-- configuration>
+                          <classifier>exec</classifier>
+                        </configuration> -->
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <!--生成jar的名称-->
+        <finalName>security-demo</finalName>
+    </build>
+
+
 </project>
