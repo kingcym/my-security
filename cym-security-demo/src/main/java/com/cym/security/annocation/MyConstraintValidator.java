@@ -1,6 +1,7 @@
 package com.cym.security.annocation;
 
 import com.cym.security.sevice.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -21,6 +22,8 @@ public class MyConstraintValidator implements ConstraintValidator<MyUnique, Obje
     @Autowired
     private UserService userService;
 
+    public Logger logger = Logger.getLogger(MyConstraintValidator.class);
+
     /**
      * 初始化方法
      *
@@ -39,7 +42,7 @@ public class MyConstraintValidator implements ConstraintValidator<MyUnique, Obje
      */
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
-        System.out.println("====属性值=======" + o);
+        logger.info("====属性值=======" + o);
         int result = userService.getCountName(o);
         return result <= 0;
     }
