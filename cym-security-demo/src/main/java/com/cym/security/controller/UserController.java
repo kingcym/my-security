@@ -3,6 +3,7 @@ package com.cym.security.controller;
 import com.cym.security.dto.User;
 import com.cym.security.sevice.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,6 +23,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    private Logger logger = Logger.getLogger(this.getClass());
 
     @GetMapping("/user")
     @JsonView(User.UserSimpleView.class)
@@ -32,6 +34,7 @@ public class UserController {
         user1.setName("张三");
         user1.setPassword("123456789");
         list.add(user1);
+        logger.info("=============返回url{user}=====================");
         return list;
     }
 
