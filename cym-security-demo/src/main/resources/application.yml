@@ -6,10 +6,17 @@ spring:
     password: cym
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-
   ####关闭spring session########
   session:
     store-type: none
+
+####mybatis配置########
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  type-aliases-package: com.cym.security
+#  config-location: classpath:mybatis-config.xml
+
+
 
 ##服务器配置
 server:
