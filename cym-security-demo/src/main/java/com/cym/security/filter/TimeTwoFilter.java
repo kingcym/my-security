@@ -30,11 +30,6 @@ public class TimeTwoFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.info("==============进入TimeTwoFilter doFilter====================");
         long l = System.currentTimeMillis();
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         filterChain.doFilter(servletRequest, servletResponse);
         logger.info("==============退出TimeTwoFilter doFilter====================耗时：" + (System.currentTimeMillis() - l));
     }

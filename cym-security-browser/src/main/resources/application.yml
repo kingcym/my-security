@@ -17,6 +17,6 @@ server:
   context-path:
 
 ####关闭security########
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false

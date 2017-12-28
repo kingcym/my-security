@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @Description:
  * @Date: 2017/12/27 11:10
  */
-@Configuration
+//@Configuration
 public class TimeFilerConfig {
     /**
      * 注册自定义TimeFilter的bean
@@ -33,7 +33,6 @@ public class TimeFilerConfig {
         return filterRegistrationBean;
     }
 
-
     /**
      * 注册自定义timeTwoFilter的bean
      */
@@ -50,8 +49,4 @@ public class TimeFilerConfig {
         filterRegistrationBean.setOrder(5);
         return filterRegistrationBean;
     }
-
-
-
-
 }

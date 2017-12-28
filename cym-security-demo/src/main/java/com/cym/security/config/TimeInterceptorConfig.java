@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @Description:
  * @Date: 2017/12/27 15:27
  */
-@Configuration
+//@Configuration
 public class TimeInterceptorConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private TimeInterceptor timeInterceptor;
@@ -37,7 +37,5 @@ public class TimeInterceptorConfig extends WebMvcConfigurerAdapter {
         //忽略拦截路径
         timeTwo.excludePathPatterns("/do");
         time.excludePathPatterns("/user");
-
-
     }
 }
