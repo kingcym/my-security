@@ -11,12 +11,20 @@ spring:
   session:
     store-type: none
 
+
 ##服务器配置
 server:
-  port: 8081
+  port: 80
   context-path:
+####mybatis配置########
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  type-aliases-package: com.cym.security
+  #  config-location: classpath:mybatis-config.xml
 
 ####关闭security########
-#security:
-#  basic:
-#    enabled: false
+security:
+  basic:
+    enabled: false
+
+

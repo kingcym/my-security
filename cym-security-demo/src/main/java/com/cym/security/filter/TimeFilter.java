@@ -18,8 +18,8 @@ import java.io.IOException;
  * 把自定义的Filter,放入其中.
  * {@link com.cym.security.config.TimeFilerConfig}
  */
-@Component
-@WebFilter(filterName="过滤器名称", urlPatterns = "/*") //过滤地址
+//@Component
+//@WebFilter(filterName="过滤器名称", urlPatterns = "/*") //过滤地址
 public class TimeFilter implements Filter {
     private Logger logger = Logger.getLogger(this.getClass());
 

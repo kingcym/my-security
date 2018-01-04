@@ -20,8 +20,23 @@
     <dependencies>
         <dependency>
             <groupId>com.cym.security</groupId>
-            <artifactId>cym-security-browser</artifactId>
+            <artifactId>cym-security-core</artifactId>
             <version>${cym.security.version}</version>
+        </dependency>
+        <!-- spring boot 组件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <!--<exclusion>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+                <!--</exclusion>-->
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
