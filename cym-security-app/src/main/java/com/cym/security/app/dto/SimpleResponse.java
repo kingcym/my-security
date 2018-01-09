@@ -1,4 +1,4 @@
-package com.cym.security.browser.dto;
+package com.cym.security.app.dto;
 
 import lombok.Data;
 

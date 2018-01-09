@@ -22,7 +22,6 @@ mybatis:
 server:
   port: 8081
   context-path:
-
 ####关闭security########
 security:
   basic:

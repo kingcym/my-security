@@ -1,7 +1,8 @@
-package com.cym.security.browser.service;
+package com.cym.security.app.service;
 
-import com.cym.security.browser.dto.MyUser;
-import com.cym.security.browser.mapper.LoginMapper;
+import com.cym.security.app.dto.CymSocialUser;
+import com.cym.security.app.dto.MyUser;
+import com.cym.security.app.mapper.LoginMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -43,9 +44,9 @@ public class MyUserDetailsService implements UserDetailsService,SocialUserDetail
         logger.info("====加密后密码======" + password);
         //校验用户密码
         //User是security自己的类实现了UserDetails接口  UserDetails todo
-        return new SocialUser(name, password,
+        return new CymSocialUser(user.getAge(),user.getMobile(),name, password,
                 true, true, true, true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 
     @Override

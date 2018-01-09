@@ -79,7 +79,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         if (action){
             try {
                 //验证验证码
-                validdate(new ServletWebRequest(request));
+        //        validdate(new ServletWebRequest(request));
 
             } catch (ValidateCodeException e) {
                 //交给登陆异常处理

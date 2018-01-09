@@ -22,8 +22,6 @@ public class CymSpringSocialConfigurer extends SpringSocialConfigurer {
     @Autowired
     private AuthenticationSuccessHandler cymAuthenticationSuccessHandle;
 
-    @Autowired
-    UserIdSource userIdSource;
 
     public CymSpringSocialConfigurer(String filterProcessUrl) {
         this.filterProcessUrl = filterProcessUrl;
@@ -35,10 +33,5 @@ public class CymSpringSocialConfigurer extends SpringSocialConfigurer {
         filter.setFilterProcessesUrl(filterProcessUrl);
         filter.setAuthenticationSuccessHandler(cymAuthenticationSuccessHandle);
         return (T)filter;
-    }
-
-    @Bean
-    public ConnectionRepository connectionRepository(UsersConnectionRepository usersConnectionRepository) {
-        return usersConnectionRepository.createConnectionRepository(this.userIdSource.getUserId());
     }
 }

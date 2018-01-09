@@ -1,0 +1,29 @@
+spring:
+  ####mysql配置########
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/mybd1?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: cym
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+##服务器配置
+server:
+  port: 8888
+  context-path:
+
+
+####mybatis配置########
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  type-aliases-package: com.cym.security
+  #  config-location: classpath:mybatis-config.xml
+
+
+security:
+  oauth2:
+    client:
+      client-id: kingcym
+      client-secret: kingcymsecret
+
+

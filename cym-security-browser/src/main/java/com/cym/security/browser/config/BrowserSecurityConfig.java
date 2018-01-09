@@ -4,6 +4,7 @@ import com.cym.security.browser.authentication.CymAuthenticationSuccessHandle;
 import com.cym.security.browser.filter.sms.SmsCodeFilter;
 import com.cym.security.browser.filter.validate.ValidateCodeFilter;
 import com.cym.security.browser.properties.BrowserProperties;
+import com.cym.security.browser.session.CymessionInformationExpiredStrategy;
 import org.apache.log4j.Logger;
 import org.aspectj.weaver.ast.And;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,8 @@ import javax.sql.DataSource;
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private Logger logger = Logger.getLogger(this.getClass());
 
-    private final String DEFAULHTML = "http://127.0.0.1:8888/login/index.html";
+  //  private final String DEFAULHTML = "http://127.0.0.1:8888/login/index.html";
+    private final String DEFAULHTML = "/html/index.html";
     private final String DEFAULTURL = "/authentication/require";
 
     @Autowired
@@ -124,12 +126,24 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                     //前端传入参数
                     .rememberMeParameter("rememberMe")
                 .and()
+                //session配置
+                .sessionManagement()
+                    //设置session失效，跳转的url
+                    .invalidSessionUrl("/session/timeout")
+                     //session并发控制
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(false)
+                    .expiredSessionStrategy(new CymessionInformationExpiredStrategy())
+                    .and()
+                    .and()
                 .authorizeRequests()//授权
-                .antMatchers(DEFAULTURL,
+                     .antMatchers(DEFAULTURL,
                         browserProperties.getLoginUrl(),
                         "/code/*",
                         "http://127.0.0.1:8888/login/logup.html",
-                        "/user/regist"
+                        "/user/regist",
+                        "/register",
+                        "/session/timeout"
                         ).permitAll() //DEFAULTURL这个路径不需要认证
                 .anyRequest() //所有请求
                 .authenticated()//都需要身份认
