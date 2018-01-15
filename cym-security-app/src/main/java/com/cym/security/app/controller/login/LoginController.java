@@ -3,6 +3,7 @@ package com.cym.security.app.controller.login;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,12 @@ import java.io.UnsupportedEncodingException;
 @RestController
 public class LoginController {
 
+
+    @GetMapping("/qqLogin/callback.do")
+    public String hello1 (HttpServletRequest request){
+        System.out.println(request.getParameter("code"));
+        return "aaa";
+    }
 
     @GetMapping("/login")
     public String hello1 (){
@@ -43,7 +50,7 @@ public class LoginController {
         return userDetails;
     }
 
-
+    @PreAuthorize("hasAnyRole('USER','hello')")
     @GetMapping("/currentUser4")
     public Object currentUser4 (HttpServletRequest request) throws UnsupportedEncodingException {
         String authorization = request.getHeader("Authorization");

@@ -2,6 +2,7 @@ package com.cym.security.app.mapper;
 
 import com.cym.security.app.dto.MyUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: Kingcym
@@ -15,4 +16,6 @@ public interface LoginMapper {
 
     //根据电话号码查找
     MyUser getUserByPhone(String mobile);
+
+    int isWhetherBound(@Param("providerId") String providerId,@Param("providerUserId") String providerUserId);
 }

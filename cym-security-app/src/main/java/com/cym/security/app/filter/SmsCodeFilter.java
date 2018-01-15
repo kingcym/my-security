@@ -90,7 +90,10 @@ public class SmsCodeFilter extends SecurityContextPersistenceFilter {
         boolean action =false;
 
         if (antPathMatcher.match("/oauth/token",request.getRequestURI())){
-            action = true;
+            if (StringUtils.isNotBlank(request.getParameter("smsCode"))){
+                action = true;
+
+            }
         }
 
 

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -128,7 +129,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //session配置
                 .sessionManagement()
-                    //设置session失效，跳转的url
+                        //不创建也不用session
+   //                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                //设置session失效，跳转的url
                     .invalidSessionUrl("/session/timeout")
                      //session并发控制
                     .maximumSessions(1)
@@ -142,7 +145,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/code/*",
                         "http://127.0.0.1:8888/login/logup.html",
                         "/user/regist",
-                        "/register",
+                        "/register","/qqLogin/callback.do",
                         "/session/timeout"
                         ).permitAll() //DEFAULTURL这个路径不需要认证
                 .anyRequest() //所有请求

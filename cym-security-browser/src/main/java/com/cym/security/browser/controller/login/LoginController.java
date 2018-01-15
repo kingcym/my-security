@@ -41,8 +41,9 @@ public class LoginController {
     }
 
 
-    @GetMapping("/login")
-    public String hello1 (){
+    @GetMapping("/qqLogin/callback.do")
+    public String hello1 (HttpServletRequest request){
+        System.out.println(request);
         return "aaa";
     }
 

@@ -20,4 +20,15 @@
         WHERE
         mobile = #{mobile}
     </select>
+
+
+    <select id="isWhetherBound" resultType="int">
+        SELECT
+          COUNT(*)
+        FROM
+        z_userconnection
+        WHERE
+        providerId = #{providerId} and providerUserId = #{providerUserId}
+    </select>
+
 </mapper>

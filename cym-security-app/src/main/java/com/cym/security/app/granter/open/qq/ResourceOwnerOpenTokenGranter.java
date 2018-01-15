@@ -14,40 +14,40 @@
  * limitations under the License.
  */
 
-package com.cym.security.app.granter;
+package com.cym.security.app.granter.open.qq;
+
+import com.cym.security.app.exception.ValidateCodeException;
+import com.cym.security.app.granter.sms.SmsCodeAuthenticationToken;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AccountStatusException;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.oauth2.provider.*;
+import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.springframework.security.authentication.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.OAuth2Request;
-import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
-import org.springframework.security.oauth2.provider.TokenRequest;
-import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 
 /**
  * @author Dave Syer
  * 
  */
-public class ResourceOwnerSMSTokenGranter extends AbstractTokenGranter {
+public class ResourceOwnerOpenTokenGranter extends AbstractTokenGranter {
 
-	private static final String GRANT_TYPE = "sms";
+	private static final String GRANT_TYPE = "open";
 
 	private final AuthenticationProvider authenticationProvider;
 
-	public ResourceOwnerSMSTokenGranter(AuthenticationProvider authenticationProvider,
-										AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+	public ResourceOwnerOpenTokenGranter(AuthenticationProvider authenticationProvider,
+                                         AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
 		this(authenticationProvider, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
 	}
 
-	protected ResourceOwnerSMSTokenGranter(AuthenticationProvider authenticationProvider, AuthorizationServerTokenServices tokenServices,
-										   ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+	protected ResourceOwnerOpenTokenGranter(AuthenticationProvider authenticationProvider, AuthorizationServerTokenServices tokenServices,
+                                            ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
 		super(tokenServices, clientDetailsService, requestFactory, grantType);
 		this.authenticationProvider = authenticationProvider;
 	}
@@ -56,9 +56,11 @@ public class ResourceOwnerSMSTokenGranter extends AbstractTokenGranter {
 	protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
 
 		Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-		String mobile = parameters.get("mobile");
+		String code = parameters.get("code");
+		String provirdId = parameters.get("provirdId");//第三方类型
 
-		Authentication userAuth = new SmsCodeAuthenticationToken(mobile);
+
+		Authentication userAuth = new OpenCodeAuthenticationToken(code);
 		((AbstractAuthenticationToken) userAuth).setDetails(parameters);
 		try {
 			userAuth = authenticationProvider.authenticate(userAuth);
@@ -72,7 +74,7 @@ public class ResourceOwnerSMSTokenGranter extends AbstractTokenGranter {
 			throw new InvalidGrantException(e.getMessage());
 		}
 		if (userAuth == null || !userAuth.isAuthenticated()) {
-			throw new InvalidGrantException("Could not authenticate user: " + mobile);
+			throw new InvalidGrantException("Could not authenticate user: " + code);
 		}
 		
 		OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);		
